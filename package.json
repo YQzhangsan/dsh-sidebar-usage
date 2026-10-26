@@ -4,6 +4,10 @@
   "description": "Keeps DeepSeek usage and account balance in a bar at the bottom of the DeepSeek Harness window.",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YQzhangsan/dsh-sidebar-usage.git"
+  },
   "keywords": [
     "dsh-plugin",
     "deepseek-harness",

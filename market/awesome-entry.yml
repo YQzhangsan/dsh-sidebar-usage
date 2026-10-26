@@ -1,10 +1,10 @@
 # One YAML file per plugin, committed as
-#   data/plugins/YQzhangsan__Big-fish.yml
+#   data/plugins/YQzhangsan__dsh-sidebar-usage.yml
 # in the awesome-dsh-plugin repository. The `url` must match the repository exactly.
-url: https://github.com/YQzhangsan/Big-fish
-name: YQzhangsan/Big-fish
+url: https://github.com/YQzhangsan/dsh-sidebar-usage
+name: YQzhangsan/dsh-sidebar-usage
 category: usage
 description:
   en: Keeps DeepSeek usage and account balance in a bar at the bottom of the window.
   zh: 在窗口底部常驻显示 DeepSeek 用量与账号余额。
-icon: https://raw.githubusercontent.com/YQzhangsan/Big-fish/main/assets/icon-512.png
+icon: https://raw.githubusercontent.com/YQzhangsan/dsh-sidebar-usage/main/assets/icon-512.png

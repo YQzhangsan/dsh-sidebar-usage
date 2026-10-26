@@ -51,7 +51,7 @@ refreshes about once a minute.
 From this repository:
 
 ```sh
-dsh plugin --profile <profile> add github:YQzhangsan/Big-fish
+dsh plugin --profile <profile> add github:YQzhangsan/dsh-sidebar-usage
 ```
 
 Then refresh the page. On DSH Desktop, install it through **Settings → Plugins** or the

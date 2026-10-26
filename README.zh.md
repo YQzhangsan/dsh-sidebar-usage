@@ -41,10 +41,10 @@
 
 ## 安装
 
-仓库：`https://github.com/YQzhangsan/Big-fish`
+仓库：`https://github.com/YQzhangsan/dsh-sidebar-usage`
 
 ```sh
-dsh plugin --profile <profile> add github:YQzhangsan/Big-fish
+dsh plugin --profile <profile> add github:YQzhangsan/dsh-sidebar-usage
 ```
 
 安装后刷新页面。DSH Desktop 请在 **设置 → 插件** 或插件市场中安装，不要用指错 profile 的 CLI。

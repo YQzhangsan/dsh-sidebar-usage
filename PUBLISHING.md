@@ -1,6 +1,6 @@
 # Publishing dsh-sidebar-usage
 
-Repository: <https://github.com/YQzhangsan/Big-fish>
+Repository: <https://github.com/YQzhangsan/dsh-sidebar-usage>
 Package: `dsh-sidebar-usage` · npm name checked free on 2026-10-27
 
 The in-app market has no upload form. Its catalog comes from the curated
@@ -15,9 +15,10 @@ keeps the prepared entry and the remaining steps.
   LICENSE, raster storefront icon) is on `main`.
 - The catalog entry is ready at [`market/awesome-entry.yml`](market/awesome-entry.yml)
   with the real repository values; it only has to be copied into the awesome-list PR.
-- **Repository age gate:** the repo was created 2026-10-26T17:47:09Z. CI requires a
-  repository at least one day old, so open the catalog PR **after 2026-10-27T17:47:00Z**
-  (2026-10-28 01:47 China time). Opening it earlier fails a mechanical check.
+- **Repository age gate:** the repository was created 2026-10-26T17:47:09Z (renaming it
+  does not reset this). CI requires a repository at least one day old, so open the
+  catalog PR **after 2026-10-27T17:47:00Z** (2026-10-28 01:47 China time). Opening it
+  earlier fails a mechanical check.
 
 ## 1. Repository topic
 
@@ -26,7 +27,7 @@ On GitHub: **About → Topics** → add `dsh-plugin`. The catalog CI and storefr
 ## 2. Install straight from the repository
 
 ```sh
-dsh plugin --profile <profile> add github:YQzhangsan/Big-fish
+dsh plugin --profile <profile> add github:YQzhangsan/dsh-sidebar-usage
 ```
 
 ## 3. Optional: publish to npm
@@ -45,9 +46,9 @@ publishing must name the official registry explicitly, as above.
 ## 4. Open the catalog PR
 
 1. Fork <https://github.com/awesome-dsh-plugin/awesome-dsh-plugin>.
-2. Add exactly one file, `data/plugins/YQzhangsan__Big-fish.yml`, containing the content
-   of [`market/awesome-entry.yml`](market/awesome-entry.yml) (do not edit the generated
-   README files).
+2. Add exactly one file, `data/plugins/YQzhangsan__dsh-sidebar-usage.yml`, containing the
+   content of [`market/awesome-entry.yml`](market/awesome-entry.yml) (do not edit the
+   generated README files).
 3. Commit, push, and open the pull request (after the one-day gate).
 
 CI checks, in order: at most three entries per PR, the `dsh.bundle` manifest in the
@@ -61,5 +62,5 @@ within a day. No further action is needed.
 
 ## Keeping it accurate
 
-Change only your own `data/plugins/YQzhangsan__Big-fish.yml`. The English description is
-read as a claim about the code, so keep it matching what the plugin does.
+Change only your own `data/plugins/YQzhangsan__dsh-sidebar-usage.yml`. The English
+description is read as a claim about the code, so keep it matching what the plugin does.
