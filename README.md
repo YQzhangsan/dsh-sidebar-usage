@@ -1,92 +1,83 @@
+中文 | [English](README.en.md)
+
 # dsh-sidebar-usage
 
-Keep DeepSeek usage and account balance visible in a compact bar at the bottom of the
-DeepSeek Harness window — no need to open **Settings → Account & Balance → View usage**
-to see where the month is going.
+在 DeepSeek Harness 窗口底部常驻一条紧凑的用量与余额条，不用再打开
+**设置 → 账号与余额 → 查询用量** 才知道这个月花了多少。
 
 ```
 今日消费 ¥0.42 · 本月消费 ¥14.19 · 本月 Tokens 104,751,630      充值余额 ¥2.80 · 赠金余额 ¥3.03   查询用量 ↗
 ```
 
-The bar spans the full width below all three columns (the `shell.bottom` slot), so it
-stays put while you switch panels, and hides itself completely when no account is
-signed in.
+它占用框架级的 `shell.bottom` 槽位，横跨三栏底部，切换主面板时保持显示；
+未登录账号时整条不渲染，也不占高度。
 
-## What it shows
+## 显示内容
 
-| Item | Meaning |
+| 项目 | 含义 |
 |---|---|
-| 今日消费 / Today | Cost booked for the current local day. |
-| 本月消费 / This month | Cost booked for the whole current month. |
-| 本月 Tokens / Month tokens | Token total for the current month, as a full grouped number. |
-| 充值余额 / Balance | Recharge wallet balance. |
-| 赠金余额 / Bonus | Bonus wallet balance, hidden when there is none. |
-| 查询用量 / View usage | Opens the DeepSeek Platform usage page. |
+| 今日消费 | 当前本地日期已计入的消费。 |
+| 本月消费 | 当前自然月已计入的消费。 |
+| 本月 Tokens | 当月 token 总量，按完整数字显示（千分位）。 |
+| 充值余额 | 充值钱包余额。 |
+| 赠金余额 | 赠金钱包余额，没有时不显示。 |
+| 查询用量 | 打开 DeepSeek 平台用量页。 |
 
-A refresh button on the right re-reads everything immediately; otherwise the bar
-refreshes about once a minute.
+右侧刷新按钮可立即重读；平时约每分钟自动刷新一次。
 
-## Where the numbers come from
+## 数据来源
 
-- **Wallets** come from the Host `deepseekAccount` service — the same official Platform
-  endpoints the Account settings page uses. The bar only reads them.
-- **Cost and tokens** come from the Platform dashboard's own usage endpoints
-  (`platform.deepseek.com/api/v0/usage/cost` and `…/usage/amount`) using the account
-  grant already stored by DSH. These are dashboard endpoints, not part of the public
-  API, and they can change without notice.
-- If that usage endpoint cannot be reached or rejects the grant, the bar keeps showing
-  the wallet balances and estimates today's spend from the day's opening balance minus
-  the current balance, marked **估算 / estimate**. It never presents an estimate as an
-  official figure.
+- **余额**来自 Host 的 `deepseekAccount` 服务，与「账号与余额」设置页使用的是同一组
+  官方平台接口；本插件只读。
+- **消费与 Tokens** 来自平台控制台自己的用量接口
+  （`platform.deepseek.com/api/v0/usage/cost` 与 `…/usage/amount`），使用 DSH 已保存的
+  账号授权。这两个是控制台接口而非公开 API，可能随时调整。
+- 用量接口不可达或拒绝授权时，余额照常显示，今日消费改用「当日初始余额 − 当前余额」
+  估算，并标注 **估算**；不会把估算值伪装成官方数字。
 
-## Requirements
+## 前置条件
 
-- DeepSeek Harness **0.2.1** (the bar uses the `shell.bottom` slot and the account
-  service). It was built and verified on `0.2.1-rc.3`.
-- A signed-in DeepSeek account. Signed out, the bar renders nothing and reserves no
-  space.
+- DeepSeek Harness **0.2.1**（依赖 `shell.bottom` 槽位与账号服务）。本插件在
+  `0.2.1-rc.3` 上开发并验证。
+- 已登录 DeepSeek 账号。未登录时不渲染、不占位。
 
-## Install
+## 安装
 
-From this repository:
+仓库：`https://github.com/YQzhangsan/dsh-sidebar-usage`
 
 ```sh
 dsh plugin --profile <profile> add github:YQzhangsan/dsh-sidebar-usage
 ```
 
-Then refresh the page. On DSH Desktop, install it through **Settings → Plugins** or the
-plugin market instead of a CLI pointed at a different profile.
+安装后刷新页面。DSH Desktop 请在 **设置 → 插件** 或插件市场中安装，不要用指错 profile 的 CLI。
 
-## Privacy
+## 隐私
 
-- The browser half talks only to the local Host route `/api/dsh-usage-bar/summary`.
-- Only the Host contacts `platform.deepseek.com`, with the same account grant DSH
-  already stores for the Account settings page. No token is ever sent to the page,
-  logged, or written anywhere.
-- The bar is read-only: it never changes account state, sends no telemetry, and keeps
-  no history.
+- 浏览器半侧只访问本机 Host 路由 `/api/dsh-usage-bar/summary`。
+- 只有 Host 会以 DSH 已保存的账号授权访问 `platform.deepseek.com`；token 不会进入页面、
+  不会写日志、不会落盘到插件自己的任何位置。
+- 插件是只读的：不改账号状态、不上报遥测、不保留历史。
 
-## Troubleshooting
+## 常见问题
 
-| Symptom | Likely cause |
+| 现象 | 可能原因 |
 |---|---|
-| Bar not visible | Not signed in to a DeepSeek account, or the page predates the installation — refresh once. |
-| `估算 / estimate` badge | The Platform usage endpoint was unreachable or rejected the grant; wallets still refresh normally. |
-| Numbers look stale | The Host caches one summary for a few seconds; press the refresh button. |
-| Only balance, no cost | The Platform dashboard endpoints changed shape; the bar degrades to wallets + estimate. |
+| 底部没有出现 | 未登录账号，或页面早于安装时间——刷新一次。 |
+| 出现「估算」标记 | 平台用量接口不可达或拒绝授权；余额仍会正常刷新。 |
+| 数字不够新 | Host 对同一份汇总有数秒缓存；点刷新按钮即可。 |
+| 只有余额没有消费 | 平台控制台接口结构变化，插件退化为「余额 + 估算」。 |
 
-## Development
+## 开发
 
-| Part | File | Role |
+| 部分 | 文件 | 作用 |
 |---|---|---|
-| Host | `index.js` | Registers `GET /api/dsh-usage-bar/summary`; reads account state, wallets, and the Platform usage endpoints; caches one summary briefly; falls back to the balance-delta estimate. |
-| Client | `client.js` | Registers into `shell.bottom`, polls the host route, renders with theme tokens and localized copy. |
-| Bundle | `cordis.patch.yml` | Inserts the `sidebar-usage` loader row. |
+| Host | `index.js` | 注册 `GET /api/dsh-usage-bar/summary`；读取账号状态、钱包与平台用量接口；短时缓存；余额差额估算兜底。 |
+| Client | `client.js` | 注册进 `shell.bottom`，轮询 Host 路由，使用主题 token 与本地化文案渲染。 |
+| 组合 | `cordis.patch.yml` | 插入 `sidebar-usage` 加载行。 |
 
-There is no build step; `index.js` and `client.js` are shipped as plain ESM and plain
-`__ModuleLoader__` bundle source. The client registers its own styles and removes them
-on unload.
+没有构建步骤：`index.js` 与 `client.js` 就是发布用的普通 ESM / `__ModuleLoader__` 源码。
+客户端样式随组件注册与卸载。
 
-## License
+## 许可
 
-MIT — see [LICENSE](LICENSE).
+MIT，见 [LICENSE](LICENSE)。
